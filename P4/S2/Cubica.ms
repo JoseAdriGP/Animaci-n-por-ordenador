@@ -1,8 +1,8 @@
 ball = sphere radius:8 wireColor:blue
-cp1 = box length:5 width:5 height:5 pos:[-60,10,0] wireColor:red
-cp2 = box length:5 width:5 height:5 pos:[-10,100,0] wireColor:red
-cp3 = box length:5 width:5 height:5 pos:[20,-80,0] wireColor:red
-cp4 = box length:5 width:5 height:5 pos:[60,-10,0] wireColor:red
+cp1 = box length:5 width:5 height:5 pos:[-40,10,10] wireColor:red
+cp2 = box length:5 width:5 height:5 pos:[-10,50,-10] wireColor:red
+cp3 = box length:5 width:5 height:5 pos:[30,-50,20] wireColor:red
+cp4 = box length:5 width:5 height:5 pos:[40,-10,0] wireColor:red
 cp5 = box length:2 width:2 height:2 wireColor:yellow
 cp6 = box length:2 width:2 height:2 wireColor:yellow
 cp7 = box length:2 width:2 height:2 wireColor:yellow
@@ -15,11 +15,11 @@ fn punto Punto1 Punto2 T=
 	return Punto1 + ((normalize V)*(((length V)/100)*T))
 )
 
-fn interpolacionCubica Traveler CP1 CP2 CP3 CP4 CP5 CP6 CP7 CP8 CP9=
+fn interpolacionCubica Traveler CP1 CP2 CP3 CP4 CP5 CP6 CP7 CP8 CP9 FIni FFin Salto =
 (
 	animate on
 	(
-		for t in 0 to 100 by 10 do
+		for t in FIni to FFin by salto do
 		(
 			at time t
 			(
@@ -35,4 +35,4 @@ fn interpolacionCubica Traveler CP1 CP2 CP3 CP4 CP5 CP6 CP7 CP8 CP9=
 	Traveler.showTrajectory = on
 )
 
-interpolacionCubica ball cp1.pos cp2.pos cp3.pos cp4.pos cp5 cp6 cp7 cp8 cp9
+interpolacionCubica ball cp1.pos cp2.pos cp3.pos cp4.pos cp5 cp6 cp7 cp8 cp9 0 100 10
