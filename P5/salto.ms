@@ -38,8 +38,21 @@ fn SquashAndStretch Traveler T T_ini T_fin H H_MIN H_MAX SQUASH_FACTOR STRETCH_F
 	)
 )
 
+fn OrientaObjetoXY Traveler CP_ini CP_fin =
+(		
+	angl = GetVectorsAngle Traveler.transform.forward (CP_fin.pos - Traveler.pos)
+	print angl
+)
+
+fn GetVectorsAngle v1 v2 = 
+( 	
+	return theAngle = acos(dot (normalize v1) (normalize v2)) 
+) 
+
+
 fn InterpolacionCuadratica Traveler CP_ini CP_fin T_ini T_fin H=
 (
+	--OrientaObjetoXY Traveler CP_ini CP_fin
 	CP_aux = [(CP_ini.x + CP_fin.x) / 2, (CP_ini.y + CP_fin.y) / 2, (distance CP_ini CP_fin) * H]
 	
 	V1 = CP_aux - CP_ini
@@ -98,7 +111,7 @@ rollout Salto "Salto"
 		if Traveler != undefined and cps.count >= 2 do
 		(
 			deletekeys Traveler
-			Traveler.dir = [0, 0, 1]
+			--Traveler.dir = [0, 0, random 1 9]
 			Saltar Traveler cps UI_IF.value (UI_IF.value + UI_FF.value) UI_HMIN.value UI_HMAX.value UI_SQ.value UI_ST.value
 			Traveler.showTrajectory = on
 		)
