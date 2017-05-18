@@ -1,0 +1,2 @@
+En cada uno de los casos anteriores, ¿qué crees que es mejor utilizar, cinemática directa (FK) o inversa (IK)? 
+En mi caso, he utilizado cinemática directa, ya que me parece más fácil de utilizar. Sin enbargo, los bipeds utilizan cinemática inversa, encontrandome con el problema de no poder hacer la animación exactamente como yo quería, si no que al calcularse automáticamente la configuración, me he encontrado con un personaje que no saludaba como yo quería.
