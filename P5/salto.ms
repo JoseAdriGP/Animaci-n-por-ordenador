@@ -40,8 +40,12 @@ fn SquashAndStretch Traveler T T_ini T_fin H H_MIN H_MAX SQUASH_FACTOR STRETCH_F
 
 fn OrientaObjetoXY Traveler CP_ini CP_fin =
 (		
-	angl = GetVectorsAngle Traveler.transform.forward (CP_fin.pos - Traveler.pos)
+	angl = GetVectorsAngle Traveler.dir (CP_fin - CP_ini)
 	print angl
+	animate on
+	(
+		Traveler.rotation.z_rotation=angl
+	)
 )
 
 fn GetVectorsAngle v1 v2 = 
@@ -66,7 +70,7 @@ fn InterpolacionCuadratica Traveler CP_ini CP_fin T_ini T_fin H=
 			(
 				CP4 = CP_ini + normalize V1 * (length V1 / (T_fin - T_ini)) * (T - T_ini)
 				CP5 = CP_aux + normalize V2 * (length V2 / (T_fin - T_ini)) * (T - T_ini)
-				
+				--OrientaObjetoXY Traveler CP_ini CP_fin
 				V3 = CP5 - CP4
 				
 				Traveler.pos = CP4 + (normalize V3 * (length V3 / (T_fin - T_ini) * (T - T_ini)))
@@ -82,6 +86,7 @@ fn Saltar Traveler CPs T_ini T_salto H_MIN H_MAX SQUASH_FACTOR STRETCH_FACTOR=
 		T_salto_ini = (i - 1) * T_salto
 		T_salto_fin = i * T_salto
 		H = random H_MIN H_MAX
+		--OrientaObjetoXY Traveler CPs[i].pos CPs[i + 1].pos
 		InterpolacionCuadratica Traveler CPs[i].pos CPs[i + 1].pos T_salto_ini T_salto_fin H
 		SquashAndStretch Traveler T_salto T_salto_ini T_salto_fin H H_MIN H_MAX SQUASH_FACTOR STRETCH_FACTOR
 	)
@@ -95,8 +100,8 @@ rollout Salto "Salto"
 	spinner UI_FF "Duración salto" range:[10, 100, 20] type:#Integer
 	spinner UI_SQ "Squash" range:[0, 0.5, 0.3] type:#Float
 	spinner UI_ST "Stretch" range:[0, 0.5, 0.3] type:#Float
-	spinner UI_HMIN "Altura mínima" range:[0.4, 1.0, 0.5] type:#Float
-	spinner UI_HMAX "Altura máxima" range:[1.0, 2.5, 2.0] type:#Float
+	spinner UI_HMIN "Altura mínima" range:[-4, 4, 0.5] type:#Float
+	spinner UI_HMAX "Altura máxima" range:[-10, 10, 2.0] type:#Float
 	button UI_CrearSalto "Crear"
 	
 	on UI_SelectorActor picked obj do
